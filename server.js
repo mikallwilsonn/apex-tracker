@@ -23,6 +23,14 @@ if ( process.env.NODE_ENV === 'development' ) {
 app.use( '/api/v1/profile', require( './routes/profile' ) );
 
 
+// Handle production
+if ( process.env.NODE_ENV === 'production' ) {
+    app.use( express.static( __dirname + '/public' ));
+
+    app.get( /.*/, ( req, res ) => res.sendFile( __dirname + '/public/index.html' ));
+}
+
+
 // Get PORT
 const PORT = process.env.PORT || 8000;
 
